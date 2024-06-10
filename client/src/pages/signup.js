@@ -14,9 +14,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { loginSchema } from "../utils/schemas";
+import { signupSchema } from "../utils/schemas";
 
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -27,10 +27,11 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
+      name: "",
       phone: "",
       password: "",
     },
-    validationSchema: loginSchema,
+    validationSchema: signupSchema,
     onSubmit: handleSubmit,
   });
 
@@ -41,9 +42,25 @@ const Login = () => {
           onSubmit={formik.handleSubmit}
           className="p-8 flex flex-col gap-6 items-center justify-center"
         >
-          <Typography variant="h6">Hi, Welcome back! &#128075;</Typography>
+          <Typography variant="h6">Create an account</Typography>
 
-          <div className="w-full flex flex-col">
+          <div className="flex flex-col w-full">
+            <TextField
+              sx={{ width: "100%" }}
+              label="Name"
+              type="text"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.name && formik.errors.name && (
+              <Typography variant="caption" className="text-red-500">
+                {formik.errors.name}
+              </Typography>
+            )}
+          </div>
+
+          <div className="flex flex-col w-full">
             <TextField
               sx={{ width: "100%" }}
               label="Phone No."
@@ -59,7 +76,7 @@ const Login = () => {
             )}
           </div>
 
-          <div className="w-full flex flex-col">
+          <div className="flex flex-col w-full">
             <FormControl sx={{ width: "100%" }} variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">
                 Password
@@ -85,27 +102,26 @@ const Login = () => {
               />
             </FormControl>
             {formik.touched.password && formik.errors.password && (
-              <Typography variant="caption" className="text-red-500 text-wrap">
+              <Typography variant="caption" className="text-red-500">
                 {formik.errors.password}
               </Typography>
             )}
           </div>
-
           <Button
             variant="contained"
             sx={{ backgroundColor: "black", width: "100%" }}
             type="submit"
           >
-            Login
+            Sign Up
           </Button>
 
           <Typography variant="caption">
             Already have an account ?{" "}
             <span
-              onClick={() => navigate("/sign-up")}
+              onClick={() => navigate("/login")}
               className="font-bold cursor-pointer hover:text-blue-600"
             >
-              Sign Up
+              Login
             </span>
           </Typography>
         </form>
@@ -114,4 +130,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

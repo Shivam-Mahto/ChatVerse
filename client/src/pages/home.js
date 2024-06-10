@@ -24,10 +24,10 @@ const Home = () => {
         </button>
       </div>
       <div className="flex">
-        {/* <img className="-z-10 h-[70vh] right-0 bottom-10" src={peep2}></img> */}
         <img
           className="hidden sm:block border-2 border-black rounded-[2rem] h-[70vh] lg:h-[90vh] left-0 bottom-0"
           src={phone}
+          alt="hero img"
         ></img>
       </div>
     </div>
